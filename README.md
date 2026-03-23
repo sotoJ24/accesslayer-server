@@ -27,7 +27,7 @@ The server is responsible for:
 
 - Express app bootstrap exists in [src/app.ts](./src/app.ts)
 - common backend middleware is already scaffolded
-- some template-era modules and labels still need to be adapted to Access Layer
+- reusable starter utilities are kept in generic Access Layer-safe form
 
 ## Local setup
 
@@ -37,6 +37,8 @@ cp .env.example .env
 pnpm exec prisma generate
 pnpm dev
 ```
+
+The database layer is expected to run through Docker or your own local container setup.
 
 ## Verification
 
