@@ -16,8 +16,7 @@
       "migrate": "pnpm exec prisma migrate dev",
       "studio": "pnpm exec prisma studio",
       "validate-api": "tspec validate",
-      "bundle": "bash src/scripts/bundle-code.sh",
-      "seed:reports": "ts-node src/scripts/seed-reports.ts"
+      "bundle": "bash src/scripts/bundle-code.sh"
    },
    "lint-staged": {
       "*.{js,jsx,ts,tsx}": [

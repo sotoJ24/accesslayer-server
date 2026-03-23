@@ -4,17 +4,17 @@ import { envConfig } from './config';
 
 const tspecOptions: Tspec.GenerateParams = {
    specPathGlobs: [
-      'src/modules/**/*.tspec.ts', // Your new Tspec definition files
-      'src/modules/**/*.schema.ts', // Your existing Zod schemas (for type extraction)
-      'src/types/**/*.ts', // Any global types
+      'src/modules/**/*.tspec.ts',
+      'src/modules/**/*.schema.ts',
+      'src/types/**/*.ts',
    ],
    tsconfigPath: './tsconfig.json',
    specVersion: 3,
    openapi: {
-      title: 'National Toilet Campaign API',
+      title: 'Access Layer Server API',
       version: '1.0.0',
       description:
-         'API documentation for National Toilet Campaign - A platform for reporting and managing toilet facility conditions across Nigeria',
+         'API documentation for Access Layer, the off-chain backend for a Stellar-native creator keys marketplace.',
       servers: [
          {
             url: `http://localhost:${envConfig.PORT}`,

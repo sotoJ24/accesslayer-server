@@ -26,7 +26,7 @@ app.use(appRateLimit);
 app.get('/health', (_, res: Response) => {
    const healthData = {
       success: true,
-      message: 'National Toilet Campaign API is running',
+      message: 'Access Layer server is running',
       timestamp: new Date().toISOString(),
       version: '1.0.0',
       environment: envConfig.MODE || 'development',

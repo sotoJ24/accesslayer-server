@@ -1,8 +1,8 @@
 #!/bin/bash
 
-OUTPUT_FILE="llm.txt"
+OUTPUT_FILE="project-context.txt"
 
-echo "🗜️  Creating ultra-compressed backend bundle (src + prisma files)..."
+echo "🗜️  Creating compressed backend context bundle (src + prisma files)..."
 
 cat > "$OUTPUT_FILE" << EOF
 ===CODE-$(date +%Y%m%d)-$(basename "$(pwd)")===
@@ -18,7 +18,7 @@ git ls-files 2>/dev/null | grep -E "src/.*\.(ts|js)$" | head -20 | while read -r
     echo "Compressing: $file"
     echo "//$file" >> "$OUTPUT_FILE"
     
-    # Extreme compression - remove ALL spaces and formatting
+    # Heavy compression for compact project context output
     cat "$file" | \
         sed 's|//.*$||g' | \
         sed '/console\./d' | \
@@ -57,7 +57,7 @@ actual_size=$(du -k "$OUTPUT_FILE" | cut -f1)
 echo "✅ Backend bundle: $OUTPUT_FILE ($(du -h "$OUTPUT_FILE" | cut -f1))"
 echo "🤖 Estimated tokens: ~$((actual_size * 4))"
 echo "📊 Files processed: $file_count"
-echo "🗜️  Maximum compression applied!"
+echo "🗜️  Compression applied"
 
 # Show what was found
 echo ""
