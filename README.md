@@ -34,11 +34,35 @@ The server is responsible for:
 ```bash
 pnpm install
 cp .env.example .env
+pnpm db:up
 pnpm exec prisma generate
+pnpm exec prisma db push
 pnpm dev
 ```
 
-The database layer is expected to run through Docker or your own local container setup.
+## Database
+
+This repo includes a local PostgreSQL container for development.
+
+Start the database:
+
+```bash
+pnpm db:up
+```
+
+Watch database logs:
+
+```bash
+pnpm db:logs
+```
+
+Stop the database:
+
+```bash
+pnpm db:down
+```
+
+The default connection string in `.env.example` matches the included Docker setup.
 
 ## Verification
 
