@@ -1,0 +1,50 @@
+import { AsyncController } from '../../types/auth.types';
+import { CreatorListQuerySchema } from './creators.schemas';
+import { fetchCreatorList } from './creators.utils';
+import {
+   serializeCreatorList,
+   CreatorListResponse,
+} from './creators.serializers';
+import {
+   sendSuccess,
+   sendValidationError,
+} from '../../utils/api-response.utils';
+import { ZodError } from 'zod';
+
+/**
+ * Controller for GET /api/v1/creators
+ *
+ * Returns paginated list of creator profiles with summary information.
+ * Validates query parameters and applies caching via middleware.
+ */
+export const httpListCreators: AsyncController = async (req, res, next) => {
+   try {
+      // Validate query parameters
+      const validatedQuery = CreatorListQuerySchema.parse(req.query);
+
+      // Fetch creators and total count
+      const [creators, total] = await fetchCreatorList(validatedQuery);
+
+      // Serialize response
+      const response: CreatorListResponse = {
+         creators: serializeCreatorList(creators),
+         pagination: {
+            limit: validatedQuery.limit,
+            offset: validatedQuery.offset,
+            total,
+            hasMore: validatedQuery.offset + validatedQuery.limit < total,
+         },
+      };
+
+      sendSuccess(res, response);
+   } catch (error) {
+      if (error instanceof ZodError) {
+         const details = error.errors.map(err => ({
+            field: err.path.join('.'),
+            message: err.message,
+         }));
+         return sendValidationError(res, 'Invalid query parameters', details);
+      }
+      next(error);
+   }
+};
