@@ -1,6 +1,7 @@
 import { prisma } from '../../utils/prisma.utils';
 import { CreatorProfile } from '../../types/profile.types';
 import { CreatorListQueryType } from './creators.schemas';
+import { mapCreatorListSort } from './creators.sort';
 
 type CreatorListWhere = {
    isVerified?: boolean;
@@ -35,8 +36,7 @@ export async function fetchCreatorList(
       ];
    }
 
-   // Build order by clause
-   const orderBy = { [sort]: order };
+   const orderBy = mapCreatorListSort(sort, order);
 
    // Fetch creators and total count in parallel
    const [creators, total] = await Promise.all([

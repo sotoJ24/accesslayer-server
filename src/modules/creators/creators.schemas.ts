@@ -1,4 +1,8 @@
 import { z } from 'zod';
+import {
+   CREATOR_LIST_SORT_OPTIONS,
+   CREATOR_LIST_SORT_ORDERS,
+} from './creators.sort';
 
 /**
  * Validation schema for creator list query parameters.
@@ -29,11 +33,8 @@ export const CreatorListQuerySchema = z.object({
       }),
 
    // Sorting
-   sort: z
-      .enum(['createdAt', 'updatedAt', 'displayName', 'handle'])
-      .optional()
-      .default('createdAt'),
-   order: z.enum(['asc', 'desc']).optional().default('desc'),
+   sort: z.enum(CREATOR_LIST_SORT_OPTIONS).optional().default('createdAt'),
+   order: z.enum(CREATOR_LIST_SORT_ORDERS).optional().default('desc'),
 
    // Filters
    verified: z
