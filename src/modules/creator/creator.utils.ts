@@ -1,5 +1,9 @@
 // src/modules/creator/creator.utils.ts
 import { Prisma } from '@prisma/client';
+import {
+   DEFAULT_CREATOR_LIST_ORDER,
+   DEFAULT_CREATOR_LIST_SORT,
+} from '../../constants/creator-list-sort.constants';
 
 export type CreatorSortField = 'createdAt' | 'handle' | 'displayName';
 export type SortOrder = 'asc' | 'desc';
@@ -22,11 +26,11 @@ export function parseCreatorSortOptions(
 
    const field = validFields.includes(sortBy as CreatorSortField)
       ? (sortBy as CreatorSortField)
-      : 'createdAt';
+      : DEFAULT_CREATOR_LIST_SORT;
 
    const order = validOrders.includes(sortOrder as SortOrder)
       ? (sortOrder as SortOrder)
-      : 'desc';
+      : DEFAULT_CREATOR_LIST_ORDER;
 
    return { field, order };
 }

@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import {
-   sendPaginatedSuccess,
+   sendSuccess,
    sendError,
    sendValidationError,
    ErrorCode,
@@ -11,6 +11,7 @@ import { getPaginatedCreators } from './creator.service';
 import { parseCreatorSortOptions } from './creator.utils';
 import { safeIntParam } from '../../utils/query.utils';
 import { parsePublicQuery } from '../../utils/public-query-parse.utils';
+import { wrapPublicCreatorListResponse } from '../creators/public-creator-list-envelope.utils';
 import {
    MIN_PAGE_SIZE,
    MAX_PAGE_SIZE,
@@ -50,10 +51,9 @@ export async function listCreators(req: Request, res: Response) {
          sort,
       });
 
-      return sendPaginatedSuccess(
+      return sendSuccess(
          res,
-         creators,
-         meta,
+         wrapPublicCreatorListResponse(creators, meta),
          200,
          'Creators retrieved successfully'
       );

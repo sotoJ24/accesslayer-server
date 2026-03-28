@@ -1,4 +1,6 @@
 import { CreatorProfile } from '../../types/profile.types';
+import type { OffsetPaginationMeta } from '../../utils/pagination.utils';
+import type { PublicCreatorListEnvelope } from './public-creator-list-envelope.utils';
 
 /**
  * Creator summary shape for list responses.
@@ -51,14 +53,9 @@ export function serializeCreatorList(
 }
 
 /**
- * Paginated creator list response shape.
+ * Paginated creator list response body (offset pagination metadata).
  */
-export interface CreatorListResponse {
-   creators: CreatorSummary[];
-   pagination: {
-      limit: number;
-      offset: number;
-      total: number;
-      hasMore: boolean;
-   };
-}
+export type CreatorListResponse = PublicCreatorListEnvelope<
+   CreatorSummary,
+   OffsetPaginationMeta
+>;
