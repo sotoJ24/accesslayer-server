@@ -33,10 +33,10 @@ export const listCreators: RequestHandler = async (req, res) => {
       return sendValidationError(res, 'Invalid query parameters', parsed.details);
     }
 
-    // Destructure using correct schema properties
+    // Destructure using schema fields
     const { offset, limit, sort, order: sortOrder } = parsed.data;
 
-    // Convert offset to page number if needed
+    // Convert offset to page number
     const page = normalizeCreatorListPage(offset);
 
     // Build sort options
