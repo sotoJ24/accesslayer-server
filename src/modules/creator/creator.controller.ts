@@ -24,17 +24,20 @@ import { LegacyCreatorQuerySchema } from '../creators/creators.schemas';
 // Typed Express handler
 export const listCreators: RequestHandler = async (req, res) => {
   try {
+    // Build request context
     const ctx = buildCreatorListRequestContext(req);
+
+    // Parse query using legacy schema
     const parsed = parsePublicQuery(LegacyCreatorQuerySchema, ctx.query);
 
     if (!parsed.ok) {
       return sendValidationError(res, 'Invalid query parameters', parsed.details);
     }
 
-    // Destructure once
+    // Destructure data once
     let { page, limit, sortBy, sortOrder } = parsed.data;
 
-    // Normalize page
+    // Normalize page number
     page = normalizeCreatorListPage(page);
 
     // Build sort options
@@ -47,6 +50,7 @@ export const listCreators: RequestHandler = async (req, res) => {
       sort,
     });
 
+    // Send success response
     return sendSuccess(
       res,
       wrapPublicCreatorListResponse(creators, meta),
