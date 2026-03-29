@@ -42,7 +42,7 @@ export const listCreators: RequestHandler = async (req, res) => {
         'Invalid query parameters',
         parsed.details
       );
-    }
+	 }
 
     // Destructure once
     let { page, limit, sortBy, sortOrder } = parsed.data;
