@@ -62,4 +62,7 @@ export const CreatorListQuerySchema = z.object({
   ),
 });
 
+// Export as LegacyCreatorQuerySchema for backward compatibility
+export const LegacyCreatorQuerySchema = CreatorListQuerySchema;
+
 export type CreatorListQueryType = z.infer<typeof CreatorListQuerySchema>;
